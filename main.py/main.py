@@ -1,33 +1,72 @@
 from distutils.log import error
+
+# user input
 import random
 
-def play():
-    user = input("what is your choice? 'r' for rock, 'p' for paper, 's' for scissors\n")
-    user = user.lower()
-    
-    computer = random.choice(['r','p','s'])
+action = {"R": "Rock", "P": "Paper", "S": "Scissors"}
+cancun = list(action.keys())
+print(cancun)
+sen = True
+pai = True
+while pai:
+    while sen:
+        user = input("Enter a choice: R for Rock, P for Paper and S for Scissors ")
+        if user in cancun:
+            print("choice taken")
+            sen = False
 
-    if user == computer:
-        return "Tie".format(user,computer)
-        user = input("what is your choice? 'r' for rock, 'p' for paper, 's' for scissors\n")
+        else:
+            print("Error, invalid choice. Try again")
 
+#computer input
+    comp = random.choice(cancun)
+    print(comp)
 
-    # r > s, s > p, p > r
-    if is_win(user,computer):
-        return "Player{}:CPU{}. You won!".format(user,computer)
-    return "Player{}:CPU{}. You lost.".format(user,computer)
+#Display Selections
+    print(f"Player ({action.get(user)}) : Computer ({action.get(comp)})")
+#Gameplay
+    playerWinMessage = "Player Wins"
+    computerWinMessage = "Computer Wins"
+    if user == comp:
+        print("Tie")
+        sen = True
+        continue
 
-def is_win(player,computer):
-    # return true if player beats computer
-    #winning conditions:# r > s, s > p, p > r
+    elif user == "R":
+        if comp == "P":
+            print(computerWinMessage)    
+        else:
+            print(playerWinMessage)    
 
-    if(player == 'r' and computer =='s') or (player == 's' and computer =='p') or (player =='p' and computer =='r'):
-      return True
-    return False
+    elif user == "P":
+        if comp == "R":
+            print(playerWinMessage)
+        else:
+            print(computerWinMessage)  
 
-if __name__ == '__main__':
-    print(play())
-    
+    elif user == "S":
+        if comp == "P":
+            print(playerWinMessage)
+        else:
+            print(computerWinMessage) 
+
+    chan = True
+    print("Do you want to continue?")
+    while chan:
+        calma = input("Enter n for no and y for yes: ")
+        calma = calma.lower()
+        if calma == "y".lower():
+            pai = True
+            sen = True
+            chan = False
+
+        elif calma == "n".lower():
+            pai = False
+            sen = False
+            chan = False
+
+        else:
+            print("Invalid input, enter Y for Yes and N for No")
 
 
 
